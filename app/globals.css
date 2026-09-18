@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #fff8e7;
+  --cream-2: #fdefcf;
+  --honey: #f5b32b;
+  --honey-dark: #d9931a;
+  --brown: #6b4a2b;
+  --bark: #3d2914;
+  --paper: #ffffff;
+  --leaf: #4e9a51;
+  --berry: #d95f4b;
+  --sky: #5aa9d6;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-honey: var(--honey);
+  --color-honey-dark: var(--honey-dark);
+  --color-brown: var(--brown);
+  --color-bark: var(--bark);
+  --color-paper: var(--paper);
+  --color-leaf: var(--leaf);
+  --color-berry: var(--berry);
+  --color-sky: var(--sky);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-body), ui-rounded, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  background-image: radial-gradient(circle at 1px 1px, rgba(107, 74, 43, 0.08) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--bark);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .card {
+    background: var(--paper);
+    border: 3px solid var(--bark);
+    border-radius: 1.25rem;
+    box-shadow: 6px 6px 0 var(--bark);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    border: 3px solid var(--bark);
+    border-radius: 0.9rem;
+    padding: 0.6rem 1.1rem;
+    background: var(--honey);
+    color: var(--bark);
+    box-shadow: 4px 4px 0 var(--bark);
+    transition: transform 80ms ease, box-shadow 80ms ease, background 120ms ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn:hover:not(:disabled) {
+    background: #ffc23f;
+  }
+  .btn:active:not(:disabled) {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--bark);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-secondary {
+    background: var(--paper);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--cream-2);
+  }
+  .btn-danger {
+    background: var(--berry);
+    color: white;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: #e8705c;
+  }
+  .btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.875rem;
+    border-width: 2px;
+    box-shadow: 3px 3px 0 var(--bark);
+    border-radius: 0.7rem;
+  }
+
+  .input {
+    width: 100%;
+    border: 3px solid var(--bark);
+    border-radius: 0.9rem;
+    padding: 0.6rem 0.9rem;
+    background: var(--paper);
+    color: var(--bark);
+    font-size: 1rem;
+    outline: none;
+  }
+  .input:focus {
+    box-shadow: 0 0 0 3px rgba(245, 179, 43, 0.5);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 2px solid var(--bark);
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: var(--cream-2);
+  }
+
+  .mask-letter {
+    display: inline-block;
+    min-width: 1.1ch;
+    text-align: center;
+    border-bottom: 3px solid var(--bark);
+    margin: 0 0.12ch;
+    line-height: 1.1;
+  }
+  .mask-space {
+    display: inline-block;
+    width: 1ch;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-pop {
+  animation: pop 180ms ease-out;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+.animate-wiggle {
+  animation: wiggle 1.6s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107, 74, 43, 0.4) transparent;
 }
