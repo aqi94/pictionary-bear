@@ -96,7 +96,12 @@ class IoRedisStore implements Store {
       lazyConnect: false,
     });
     this.client.on("error", (e) => console.error("[redis] client error", e.message));
-    attachDatabasePool(this.client);
+    try {
+      // Lets Fluid Compute release idle connections before suspending an instance.
+      attachDatabasePool(this.client as unknown as Parameters<typeof attachDatabasePool>[0]);
+    } catch {
+      /* helper does not recognise this ioredis version; connections still close on their own */
+    }
     this.bus.setMaxListeners(0);
   }
 
