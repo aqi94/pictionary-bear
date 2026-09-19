@@ -42,6 +42,14 @@ npm run lint
 npm run build
 ```
 
+End-to-end scripts live in `e2e/` and run against any running instance (local or deployed):
+
+```bash
+BASE=http://localhost:3000 node e2e/api-smoke.mjs        # four scripted players play a full game
+npm i --no-save playwright && npx playwright install chromium
+BASE=http://localhost:3000 node e2e/ui-regression.mjs    # browser checks: phone layout, keyboard, word choice on later turns
+```
+
 To develop against a real Redis, put a `rediss://` (or `redis://`) URL in `.env.local` as `REDIS_URL` (or pull it from Vercel with `vercel env pull .env.local`).
 
 ## Deploying to Vercel
@@ -63,6 +71,7 @@ lib/rooms.ts                    load/save/lock/publish helpers, auth
 hooks/useRoom.ts                SSE client, actions, stroke batching, timers
 components/                     Canvas, Toolbar, Chat, PlayerList, Lobby, Game, Bear
 tests/engine.test.ts            unit tests
+e2e/                            API smoke test + Playwright UI regression scripts
 ```
 
 ## License
