@@ -50,10 +50,14 @@ export function Canvas({
     let current: { id: string; color: string; size: number; pts: number[]; sent: number } | null = null;
     let flushTimer: ReturnType<typeof setInterval> | null = null;
 
+    // The bitmap is shown with `object-fit: contain`, so it may be letterboxed inside the element.
     const toLocal = (e: PointerEvent) => {
       const r = canvas.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width) * CANVAS_W;
-      const y = ((e.clientY - r.top) / r.height) * CANVAS_H;
+      const scale = Math.min(r.width / CANVAS_W, r.height / CANVAS_H) || 1;
+      const left = r.left + (r.width - CANVAS_W * scale) / 2;
+      const top = r.top + (r.height - CANVAS_H * scale) / 2;
+      const x = (e.clientX - left) / scale;
+      const y = (e.clientY - top) / scale;
       return [Math.max(0, Math.min(CANVAS_W, x)), Math.max(0, Math.min(CANVAS_H, y))];
     };
 
@@ -135,8 +139,8 @@ export function Canvas({
       ref={canvasRef}
       width={CANVAS_W}
       height={CANVAS_H}
-      className={`block w-full h-auto bg-white rounded-xl select-none ${canDraw ? "cursor-crosshair" : ""} ${className}`}
-      style={{ touchAction: "none", aspectRatio: `${CANVAS_W} / ${CANVAS_H}` }}
+      className={`absolute inset-0 block w-full h-full object-contain bg-white select-none ${canDraw ? "cursor-crosshair" : ""} ${className}`}
+      style={{ touchAction: "none" }}
       aria-label={canDraw ? "Drawing canvas — draw here" : "Drawing canvas"}
     />
   );

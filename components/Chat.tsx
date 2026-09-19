@@ -36,7 +36,7 @@ export function Chat({ conn, me, compact = false }: { conn: RoomConnection; me?:
   return (
     <div className="flex flex-col h-full min-h-0">
       {!compact && (
-        <div className="px-3 py-2 border-b-3 border-bark bg-cream-2 font-display font-bold flex items-center justify-between">
+        <div className="kb-hide px-3 py-2 border-b-3 border-bark bg-cream-2 font-display font-bold flex items-center justify-between shrink-0">
           <span>Chat & guesses</span>
           {guessed && room.phase === "drawing" && <span className="chip bg-leaf text-white border-leaf">You got it!</span>}
         </div>
@@ -54,7 +54,7 @@ export function Chat({ conn, me, compact = false }: { conn: RoomConnection; me?:
           <Line key={m.id} m={m} me={room.me} />
         ))}
       </div>
-      <form onSubmit={submit} className="p-2 border-t-3 border-bark bg-cream-2 flex gap-2">
+      <form onSubmit={submit} className="p-2 border-t-3 border-bark bg-cream-2 flex gap-2 shrink-0">
         <input
           className="input py-2"
           value={text}

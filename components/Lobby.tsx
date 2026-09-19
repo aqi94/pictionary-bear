@@ -39,8 +39,8 @@ export function Lobby({ conn }: { conn: RoomConnection }) {
   const setSetting = (patch: Partial<typeof room.settings>) => act(() => conn.send({ type: "update_settings", settings: patch }));
 
   return (
-    <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-6 grid gap-5 lg:grid-cols-[1fr_320px]">
-      <div className="space-y-5">
+    <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-6 grid gap-5 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="space-y-5 min-w-0">
         <section className="card p-5 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
           <div>
             <p className="text-sm font-bold text-brown uppercase tracking-wider">Room code</p>
@@ -150,7 +150,7 @@ export function Lobby({ conn }: { conn: RoomConnection }) {
         </section>
       </div>
 
-      <aside className="card p-0 overflow-hidden flex flex-col min-h-[320px] lg:min-h-0">
+      <aside className="card p-0 overflow-hidden flex flex-col min-w-0 h-[360px] lg:h-auto lg:max-h-[calc(100dvh-3rem)] lg:sticky lg:top-6">
         <Chat conn={conn} me={me} />
       </aside>
     </main>

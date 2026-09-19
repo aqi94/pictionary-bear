@@ -32,6 +32,9 @@
 html,
 body {
   height: 100%;
+  /* A stray wide element must never widen the page: iOS Safari zooms out to fit when it does. */
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
@@ -142,6 +145,23 @@ body {
     display: inline-block;
     width: 1ch;
   }
+}
+
+/* The game shell is exactly as tall as the visible viewport and never grows with its content. */
+.game-shell {
+  height: 100vh;
+  height: 100dvh;
+  height: var(--app-height, 100dvh);
+  flex: none;
+  overflow: hidden;
+}
+@media (min-width: 64rem) {
+  .game-shell {
+    max-height: 920px;
+  }
+}
+html[data-kb="open"] .kb-hide {
+  display: none;
 }
 
 @keyframes pop {

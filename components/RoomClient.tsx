@@ -66,7 +66,9 @@ function Connected({ code, identity, onReset }: { code: string; identity: RoomId
   return (
     <div className="flex-1 flex flex-col">
       {status === "reconnecting" && (
-        <div className="bg-honey text-bark font-bold text-center text-sm py-1 border-b-3 border-bark">Reconnecting…</div>
+        <div role="status" className="fixed top-2 left-1/2 -translate-x-1/2 z-[60] chip bg-honey shadow-[3px_3px_0_var(--bark)]">
+          Reconnecting…
+        </div>
       )}
       {room.phase === "lobby" ? <Lobby conn={conn} /> : <Game conn={conn} />}
     </div>
